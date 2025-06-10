@@ -4,7 +4,7 @@ import stats from "../assets/stats.png";
 
 const UploadSection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

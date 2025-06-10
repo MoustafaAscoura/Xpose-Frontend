@@ -13,6 +13,10 @@ const HeroSection = () => {
             <span className="text-xpose-green">Real or Fake?</span> Know in One
             Click.
           </h1>
+          <h1 className="text-2xl md:text-[40px] font-bold mb-4 leading-10">
+            T &#x2661; S <span className="text-xpose-green">Real or Fake?</span>
+            Know in One Click.
+          </h1>
           <p className="text-white text-sm lg:text-[20px] mb-8 leading-5 lg:leading-8">
             Xpose is an AI-powered deepfake detection tool that reveals image
             authenticity in just one click. Upload any photo—our advanced models
