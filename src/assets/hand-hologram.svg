@@ -1,0 +1,53 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hand base -->
+  <path d="M100 180 C 60 160, 50 120, 50 100 C 50 80, 60 60, 80 60 C 90 60, 95 65, 100 70 C 105 65, 110 60, 120 60 C 140 60, 150 80, 150 100 C 150 120, 140 160, 100 180 Z" fill="#333" stroke="#00CCFF" stroke-width="2"/>
+  
+  <!-- Hologram sphere -->
+  <circle cx="100" cy="90" r="30" fill="none" stroke="#00FFD1" stroke-width="2" opacity="0.7">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Hologram rings -->
+  <circle cx="100" cy="90" r="40" fill="none" stroke="#00CCFF" stroke-width="1" opacity="0.5">
+    <animate attributeName="r" values="30;45;30" dur="4s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Digital particles -->
+  <g opacity="0.8">
+    <circle cx="90" cy="80" r="2" fill="#00CCFF">
+      <animate attributeName="cy" values="80;75;80" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="110" cy="85" r="2" fill="#00FFD1">
+      <animate attributeName="cy" values="85;90;85" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="100" cy="95" r="2" fill="#6E3AFF">
+      <animate attributeName="cy" values="95;90;95" dur="1.8s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="85" cy="90" r="2" fill="#00FFD1">
+      <animate attributeName="cx" values="85;80;85" dur="2.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="115" cy="90" r="2" fill="#00CCFF">
+      <animate attributeName="cx" values="115;120;115" dur="2.3s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Connection lines -->
+  <g opacity="0.6" stroke="#00CCFF" stroke-width="1">
+    <line x1="90" y1="80" x2="100" y2="95">
+      <animate attributeName="y1" values="80;75;80" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="95;90;95" dur="1.8s" repeatCount="indefinite" />
+    </line>
+    <line x1="110" y1="85" x2="100" y2="95">
+      <animate attributeName="y1" values="85;90;85" dur="2.5s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="95;90;95" dur="1.8s" repeatCount="indefinite" />
+    </line>
+    <line x1="85" y1="90" x2="90" y2="80">
+      <animate attributeName="x1" values="85;80;85" dur="2.2s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="80;75;80" dur="2s" repeatCount="indefinite" />
+    </line>
+    <line x1="115" y1="90" x2="110" y2="85">
+      <animate attributeName="x1" values="115;120;115" dur="2.3s" repeatCount="indefinite" />
+      <animate attributeName="y2" values="85;90;85" dur="2.5s" repeatCount="indefinite" />
+    </line>
+  </g>
+</svg>
