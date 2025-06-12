@@ -5,26 +5,44 @@ import stats from "../assets/stats.png";
 const UploadSection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [prediction, setPrediction] = useState(null); // Store prediction data
+  const [heatmapImage, setHeatmapImage] = useState(null); // Store base64 heatmap
+  const [error, setError] = useState(null); // Store errors
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedImage) return;
+    if (!selectedImage) {
+      setError("Please select an image to upload.");
+      return;
+    }
 
     setIsLoading(true);
+    setError(null);
+    setPrediction(null);
+    setHeatmapImage(null);
 
     const formData = new FormData();
     formData.append("file", selectedImage);
 
     try {
-      // Dummy API endpoint
-      await fetch("https://dummyapi.com/upload", {
+      console.log("Sending API request to http://127.0.0.1:8000/predict");
+      const response = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         body: formData,
       });
-    } catch (error) {
-      console.error("Upload error:", error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("API response:", data);
+      setPrediction(data.prediction || { label: "N/A", confidence: 0 });
+      setHeatmapImage(data.heatmap_image_base64 || null);
+    } catch (err) {
+      console.error("Upload error:", err);
+      setError(err.message || "Failed to fetch data from the server.");
     } finally {
       setIsLoading(false);
+      console.log("Request complete");
     }
   };
 
@@ -35,7 +53,9 @@ const UploadSection = () => {
       ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type)
     ) {
       setSelectedImage(file);
+      setError(null); // Clear error on valid file selection
     } else {
+      setSelectedImage(null);
       alert("Only .jpg, .png, or .svg files are allowed.");
     }
   };
@@ -69,8 +89,9 @@ const UploadSection = () => {
               <button
                 className="py-2 px-4 bg-[#008BD1] rounded-lg text-white"
                 type="submit"
+                disabled={isLoading}
               >
-                Upload
+                {isLoading ? "Uploading..." : "Upload"}
               </button>
             </div>
 
@@ -87,7 +108,7 @@ const UploadSection = () => {
                   <div className="text-3xl text-[#00F0FF]">
                     <img
                       src={upload}
-                      alt="Upload"
+                      alt="Upload Icon"
                       className="w-[60px] h-[42px]"
                     />
                   </div>
@@ -116,6 +137,13 @@ const UploadSection = () => {
               <div className="flex justify-center bg-[#121A31] items-center h-40">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
+                ) : error ? (
+                  <p className="text-red-500">{error}</p>
+                ) : prediction ? (
+                  <div className="text-center">
+                    <p className="text-lg font-semibold">Label: {prediction.label}</p>
+                    <p>Confidence: {(prediction.confidence * 100).toFixed(2)}%</p>
+                  </div>
                 ) : (
                   <img src={stats} alt="stats" className="w-10 h-10" />
                 )}
@@ -128,6 +156,14 @@ const UploadSection = () => {
               <div className="flex justify-center flex-grow bg-[#121A31] items-center">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
+                ) : error ? (
+                  <p className="text-red-500">{error}</p>
+                ) : heatmapImage ? (
+                  <img
+                    src={`data:image/png;base64,${heatmapImage}`}
+                    alt="Heatmap"
+                    className="max-w-full max-h-full object-contain rounded-md"
+                  />
                 ) : (
                   <img src={stats} alt="stats" className="w-10 h-10" />
                 )}
