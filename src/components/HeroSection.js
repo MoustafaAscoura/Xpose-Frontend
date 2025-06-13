@@ -10,7 +10,7 @@ const HeroSection = () => {
       <div className="px-10 md:px-16 xl:px-24 z-10">
         <div className="max-w-[40%]">
           <h1 className="text-2xl md:text-[40px] font-bold mb-4 leading-10">
-            T &#x2661; S <span className="text-xpose-green">Real or Fake?</span>
+            <span className="text-xpose-green">Real or Fake? </span>
             Know in One Click.
           </h1>
           <p className="text-white text-sm lg:text-[20px] mb-8 leading-5 lg:leading-8">

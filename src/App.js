@@ -15,9 +15,9 @@ function App() {
       <main>
         <HeroSection />
         <FeaturesSection />
+        <UploadSection />
         <TechnologySection />
         <FAQSection />
-        <UploadSection />
       </main>
       <Footer />
     </div>

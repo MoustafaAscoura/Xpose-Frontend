@@ -48,21 +48,18 @@ const UploadSection = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (
-      file &&
-      ["image/jpeg", "image/png", "image/svg+xml"].includes(file.type)
-    ) {
+    if (file && ["image/jpeg", "image/png"].includes(file.type)) {
       setSelectedImage(file);
       setError(null); // Clear error on valid file selection
     } else {
       setSelectedImage(null);
-      alert("Only .jpg, .png, or .svg files are allowed.");
+      alert("Only .jpg, or .png files are allowed.");
     }
   };
 
   return (
     <section id="upload" className="py-20">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-10 md:px-16 xl:px-24">
         <div className="text-center text-white mb-24">
           <h2 className="text-section-title xl:text-section-title-xl mb-3">
             See our <span className="text-xpose-green">Xpose</span> Detection
@@ -72,27 +69,43 @@ const UploadSection = () => {
             Upload your image here to test our model in real-time!
           </p>
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
+
+        <div className="flex flex-col md:flex-row gap-4 min-h-[400px] h-[80vh]">
           {/* Upload Section */}
           <form
             onSubmit={handleSubmit}
-            style={{ height: "clamp(400px, 80vh, 800px)" }}
             className="bg-[#0E1426] p-6 rounded-lg min-w-[60%] flex flex-col"
           >
             <div className="flex justify-between items-center text-white">
               <div>
                 <p className="m-0 text-lg leading-6">Upload your image</p>
                 <p className="m-0 text-sm leading-6">
-                  Only support .jpg, .png, and .svg files
+                  Only support .jpg, and .png files
                 </p>
               </div>
-              <button
-                className="py-2 px-4 bg-[#008BD1] rounded-lg text-white"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading ? "Uploading..." : "Upload"}
-              </button>
+              {prediction ? (
+                <button
+                  className="py-2 px-4 bg-[#008BD1] rounded-lg text-white"
+                  type="reset"
+                  onClick={() => {
+                    setError(null);
+                    setHeatmapImage(null);
+                    setIsLoading(false);
+                    setPrediction(null);
+                    setSelectedImage(null);
+                  }}
+                >
+                  Reset
+                </button>
+              ) : (
+                <button
+                  className="py-2 px-4 bg-[#008BD1] rounded-lg text-white"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Fetching Results ..." : "Upload"}
+                </button>
+              )}
             </div>
 
             {/* Upload Area or Image Preview */}
@@ -118,7 +131,7 @@ const UploadSection = () => {
                     Browse files
                     <input
                       type="file"
-                      accept=".jpg,.jpeg,.png,.svg"
+                      accept=".jpg,.jpeg,.png"
                       onChange={handleFileChange}
                       className="hidden"
                     />
@@ -137,12 +150,14 @@ const UploadSection = () => {
               <div className="flex justify-center bg-[#121A31] items-center h-40">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
-                ) : error ? (
-                  <p className="text-red-500">{error}</p>
                 ) : prediction ? (
                   <div className="text-center">
-                    <p className="text-lg font-semibold">Label: {prediction.label}</p>
-                    <p>Confidence: {(prediction.confidence * 100).toFixed(2)}%</p>
+                    <p className="text-lg font-semibold">
+                      Label: {prediction.label}
+                    </p>
+                    <p>
+                      Confidence: {(prediction.confidence * 100).toFixed(2)}%
+                    </p>
                   </div>
                 ) : (
                   <img src={stats} alt="stats" className="w-10 h-10" />
@@ -156,8 +171,6 @@ const UploadSection = () => {
               <div className="flex justify-center flex-grow bg-[#121A31] items-center">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
-                ) : error ? (
-                  <p className="text-red-500">{error}</p>
                 ) : heatmapImage ? (
                   <img
                     src={`data:image/png;base64,${heatmapImage}`}

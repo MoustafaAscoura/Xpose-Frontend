@@ -10,9 +10,9 @@ const FAQSection = () => {
         "Our image detection technology uses advanced AI algorithms to analyze visual patterns, metadata, and inconsistencies that are typically present in manipulated or AI-generated images. The system compares the submitted image against known patterns of authentic and fake images to determine its likelihood of being manipulated.",
     },
     {
-      question: "How does image detection technology work?",
+      question: "Is the detection process secure and private?",
       answer:
-        "Our image detection technology uses advanced AI algorithms to analyze visual patterns, metadata, and inconsistencies that are typically present in manipulated or AI-generated images. The system compares the submitted image against known patterns of authentic and fake images to determine its likelihood of being manipulated.",
+        "Yes, all uploaded images are processed securely and never stored without user consent. Our system ensures user privacy by automatically deleting images after analysis, unless the user explicitly opts to save them for reports or further review.",
     },
     {
       question: "What types of image manipulation can be detected?",
@@ -32,7 +32,7 @@ const FAQSection = () => {
 
   return (
     <section id="faq" className="py-16 text-white">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto px-10 md:px-16 xl:px-24 max-w-6xl">
         <div className="text-center text-white mb-14">
           <h2 className="text-section-title xl:text-section-title-xl mb-3">
             Frequently Asked <span className="text-xpose-green">Questions</span>

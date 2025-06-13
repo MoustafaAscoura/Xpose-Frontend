@@ -20,13 +20,13 @@ const Header = () => {
 
   return (
     <header
-      className={` px-10 md:px-16 xl:px-24 flex justify-between items-center fixed top-0 left-0 right-0 z-50 text-xpose-text-primary py-4 h-20 xl:h-[108px] transition-all duration-300 bg-xpose-dark/40`}
+      className={`px-10 md:px-16 xl:px-24 flex justify-between items-center fixed top-0 left-0 right-0 z-50 text-xpose-text-primary py-4 h-20 xl:h-[108px] transition-all duration-300 bg-xpose-dark/70`}
     >
       <div className="flex items-center">
         <img
           src={logo}
           alt="Digital hologram in hand"
-          className="w-40 h-9 xl:w-52 xl:h-12 object-contain"
+          className="w-44 h-14 xl:w-54 xl:h-18 object-contain"
         />
       </div>
       <nav>

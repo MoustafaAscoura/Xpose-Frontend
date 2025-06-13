@@ -2,28 +2,28 @@ import React from "react";
 
 const sections = [
   {
-    title: "Machine Learning",
+    title: "Curating a Diverse Dataset",
     description:
-      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly.",
+      "We gathered a wide range of real and synthetic images to train and test our models, ensuring accuracy across different faces, lighting, and image styles.",
     icon: require("../assets/ml-icon-1.png"),
   },
   {
-    title: "Machine Learning",
+    title: "Training Robust AI Models",
     description:
-      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly.",
+      "Using our curated datasets, we trained advanced machine learning models capable of identifying the subtle signs of deepfakes with high precision.",
+    icon: require("../assets/ml-icon-2.png"),
+  },
+  {
+    title: "Deploying an Accessible API",
+    description:
+      "We developed a powerful backend system that exposes our detection models through simple, scalable APIs for seamless integration.",
     icon: require("../assets/ml-icon-1.png"),
   },
   {
-    title: "Machine Learning",
+    title: "Designing a User-Friendly Platform",
     description:
-      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly.",
-    icon: require("../assets/ml-icon-1.png"),
-  },
-  {
-    title: "Machine Learning",
-    description:
-      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly.",
-    icon: require("../assets/ml-icon-1.png"),
+      "To make deepfake detection accessible to everyone, we built an intuitive web interface that allows users to upload images and view detection results and statistics easily.",
+    icon: require("../assets/ml-icon-2.png"),
   },
 ];
 
@@ -44,7 +44,7 @@ const TechnologySection = () => {
         <div className="grid grid-cols-2 gap-y-10 gap-x-4 mt-14">
           {sections.map((item, index) => (
             <div key={index} className="flex items-center gap-4 rounded-lg">
-              <img src={item.icon} alt={item.title} className="w-24 h-full" />
+              <img src={item.icon} alt={item.title} className="w-24 h-auto" />
               <div>
                 <h3 className="text-white text-xl font-semibold mb-2">
                   {item.title}
