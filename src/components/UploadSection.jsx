@@ -58,9 +58,9 @@ const UploadSection = () => {
   };
 
   return (
-    <section id="upload" className="py-20">
+    <section id="upload" className="py-8 md:py-20">
       <div className="container mx-auto px-10 md:px-16 xl:px-24">
-        <div className="text-center text-white mb-24">
+        <div className="text-center text-white mb-8 md:mb-24">
           <h2 className="text-section-title xl:text-section-title-xl mb-3">
             See our <span className="text-xpose-green">Xpose</span> Detection
             tools in action.
@@ -70,15 +70,17 @@ const UploadSection = () => {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 min-h-[400px] h-[80vh]">
+        <div className="flex flex-col md:flex-row gap-4 min-h-[400px] md:h-[80vh]">
           {/* Upload Section */}
           <form
             onSubmit={handleSubmit}
-            className="bg-[#0E1426] p-6 rounded-lg min-w-[60%] flex flex-col"
+            className="bg-[#0E1426] p-6 rounded-lg min-w-[60%] flex flex-col min-h-[400px]"
           >
             <div className="flex justify-between items-center text-white">
               <div>
-                <p className="m-0 text-lg leading-6">Upload your image</p>
+                <p className="m-0 text-sm md:text-lg leading-6">
+                  Upload your image
+                </p>
                 <p className="m-0 text-sm leading-6">
                   Only support .jpg, and .png files
                 </p>
@@ -168,7 +170,7 @@ const UploadSection = () => {
               <p className="text-base leading-8 border-l-2 border-[#800080] pl-4 mb-4">
                 Results
               </p>
-              <div className="flex justify-center flex-grow bg-[#121A31] items-center">
+              <div className="flex justify-center flex-grow bg-[#121A31] items-center py-14">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
                 ) : heatmapImage ? (

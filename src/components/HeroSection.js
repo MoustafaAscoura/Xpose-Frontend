@@ -8,7 +8,7 @@ const HeroSection = () => {
     >
       <div className="absolute inset-0 bg-hero-pattern bg-cover bg-center"></div>
       <div className="px-10 md:px-16 xl:px-24 z-10">
-        <div className="max-w-[40%]">
+        <div className="md:max-w-[40%]">
           <h1 className="text-2xl md:text-[40px] font-bold mb-4 leading-10">
             <span className="text-xpose-green">Real or Fake? </span>
             Know in One Click.

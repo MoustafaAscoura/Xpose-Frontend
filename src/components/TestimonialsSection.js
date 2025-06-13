@@ -31,19 +31,19 @@ const FAQSection = () => {
   };
 
   return (
-    <section id="faq" className="py-16 text-white">
+    <section id="faq" className="py-6 md:py-16 text-white">
       <div className="container mx-auto px-10 md:px-16 xl:px-24 max-w-6xl">
-        <div className="text-center text-white mb-14">
+        <div className="text-center text-white mb-8 md:mb-14">
           <h2 className="text-section-title xl:text-section-title-xl mb-3">
             Frequently Asked <span className="text-xpose-green">Questions</span>
           </h2>
-          <p className="text-xpose-text-secondary text-base xl:text-[20px] leading-10">
+          <p className="text-xpose-text-secondary text-base xl:text-[20px] leading-5 md:leading-10">
             Learn more about how our AI-powered platform helps you detect fake
             images — safely, quickly, and confidently.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
