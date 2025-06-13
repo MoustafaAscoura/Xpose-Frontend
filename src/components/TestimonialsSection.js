@@ -22,7 +22,7 @@ const FAQSection = () => {
     {
       question: "What's the success rate of detection?",
       answer:
-        "Our current detection accuracy exceeds 95% for most common types of image manipulations. However, as AI technology evolves, we continuously update our models to maintain high accuracy rates against new generation techniques.",
+        "Our current detection accuracy exceeds 96% for most common types of image manipulations. However, as AI technology evolves, we continuously update our models to maintain high accuracy rates against new generation techniques.",
     },
   ];
 
