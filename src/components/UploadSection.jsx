@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import upload from "../assets/upload.png";
 import stats from "../assets/stats.png";
 
@@ -7,17 +7,11 @@ const UploadSection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [prediction, setPrediction] = useState(null); // Store prediction data
   const [heatmapImage, setHeatmapImage] = useState(null); // Store base64 heatmap
-  const [error, setError] = useState(null); // Store errors
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedImage) {
-      setError("Please select an image to upload.");
-      return;
-    }
 
     setIsLoading(true);
-    setError(null);
     setPrediction(null);
     setHeatmapImage(null);
 
@@ -39,7 +33,6 @@ const UploadSection = () => {
       setHeatmapImage(data.heatmap_image_base64 || null);
     } catch (err) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to fetch data from the server.");
     } finally {
       setIsLoading(false);
       console.log("Request complete");
@@ -50,7 +43,6 @@ const UploadSection = () => {
     const file = e.target.files[0];
     if (file && ["image/jpeg", "image/png"].includes(file.type)) {
       setSelectedImage(file);
-      setError(null); // Clear error on valid file selection
     } else {
       setSelectedImage(null);
       alert("Only .jpg, or .png files are allowed.");
@@ -90,7 +82,6 @@ const UploadSection = () => {
                   className="py-2 px-4 bg-[#008BD1] rounded-lg text-white"
                   type="reset"
                   onClick={() => {
-                    setError(null);
                     setHeatmapImage(null);
                     setIsLoading(false);
                     setPrediction(null);
@@ -149,18 +140,77 @@ const UploadSection = () => {
               <p className="text-base leading-8 border-l-2 border-blue-500 pl-4 mb-4">
                 Summary
               </p>
-              <div className="flex justify-center bg-[#121A31] items-center h-40">
+              <div
+                className={`flex justify-center ${
+                  !prediction && "bg-[#121A31]"
+                } items-center h-40`}
+              >
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
                 ) : prediction ? (
-                  <div className="text-center">
-                    <p className="text-lg font-semibold">
-                      Label: {prediction.label}
-                    </p>
-                    <p>
-                      Confidence: {(prediction.confidence * 100).toFixed(2)}%
-                    </p>
-                  </div>
+                  <>
+                    <div className="flex flex-col justify-between h-full">
+                      <p className="text-xl">
+                        The input{" "}
+                        <span
+                          className={
+                            prediction.real > prediction.fake
+                              ? "text-[#04FEC1]"
+                              : "text-[#E24C4A]"
+                          }
+                        >
+                          {prediction.confidence > 0.75
+                            ? "definitely"
+                            : prediction.confidence > 0.5
+                            ? "most likely"
+                            : "probably"}{" "}
+                          {prediction.real > prediction.fake
+                            ? "does not contain"
+                            : "contains"}{" "}
+                          AI-generated or deepfake content
+                        </span>
+                      </p>
+                      <div className="flex justify-between items-center gap-4">
+                        <div className="flex-grow w-full max-w-xl mx-auto">
+                          <div className="flex justify-between text-sm font-medium mb-1 px-1">
+                            <span className="text-[#FF6154]">Fake image</span>
+                            <span className="text-[#04FEC1]">Real image</span>
+                          </div>
+                          <div className="relative h-2 rounded-full bg-gradient-to-r from-[#FF6154] to-[#04FEC1]">
+                            <div
+                              className="absolute top-0 h-2 rounded-full bg-[#0f172a]" // match background
+                              style={{
+                                left: `${prediction.real}%`,
+                                width: `${100 - prediction.real}%`,
+                                borderTopRightRadius: "9999px",
+                                borderBottomRightRadius: "9999px",
+                              }}
+                            />
+                            <div
+                              className="absolute -top-1.5 h-3 w-3 rounded-full bg-gray-200 shadow"
+                              style={{
+                                left: `calc(${prediction.real}% - 6px)`,
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-base">Confidence</p>
+                          <p className="text-[32px] text-center">
+                            {(prediction.confidence * 100).toFixed(0)}%
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className="text-center">
+                      <p className="text-lg font-semibold">
+                        Label: {prediction.label}
+                      </p>
+                      <p>
+                        Confidence: {(prediction.confidence * 100).toFixed(2)}%
+                      </p>
+                    </div> */}
+                  </>
                 ) : (
                   <img src={stats} alt="stats" className="w-10 h-10" />
                 )}
