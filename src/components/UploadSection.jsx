@@ -5,6 +5,7 @@ import stats from "../assets/stats.png";
 const UploadSection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [prediction, setPrediction] = useState(null); // Store prediction data
   const [heatmapImage, setHeatmapImage] = useState(null); // Store base64 heatmap
 
@@ -187,7 +188,7 @@ const UploadSection = () => {
                               }}
                             />
                             <div
-                              className="absolute -top-1.5 h-3 w-3 rounded-full bg-gray-200 shadow"
+                              className="absolute -top-[1.5px] h-3 w-3 rounded-full bg-gray-200 shadow"
                               style={{
                                 left: `calc(${prediction.real}% - 6px)`,
                               }}
@@ -202,14 +203,6 @@ const UploadSection = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="text-center">
-                      <p className="text-lg font-semibold">
-                        Label: {prediction.label}
-                      </p>
-                      <p>
-                        Confidence: {(prediction.confidence * 100).toFixed(2)}%
-                      </p>
-                    </div> */}
                   </>
                 ) : (
                   <img src={stats} alt="stats" className="w-10 h-10" />
@@ -217,9 +210,47 @@ const UploadSection = () => {
               </div>
             </div>
             <div className="bg-[#0E1426] p-6 rounded-lg text-white flex-grow flex flex-col">
-              <p className="text-base leading-8 border-l-2 border-[#800080] pl-4 mb-4">
-                Results
-              </p>
+              <div className="flex justify-between items-center mb-4 relative">
+                <p className="text-base leading-8 border-l-2 border-[#800080] pl-4">
+                  Results
+                </p>
+                <p
+                  onMouseEnter={() => setShowInfo(true)}
+                  onMouseLeave={() => setShowInfo(false)}
+                  onClick={() => {
+                    setShowInfo(!showInfo);
+                    setTimeout(() => {
+                      setShowInfo(false);
+                    }, 3000);
+                  }}
+                  className="cursor-pointer"
+                >
+                  &#9432;
+                </p>
+                {showInfo && (
+                  <div
+                    onClick={() => setShowInfo(false)}
+                    className="absolute bg-xpose-darker/80 p-4 text-sm top-10 rounded-lg"
+                  >
+                    <p className="mb-2">
+                      The heat map conveys important information about the spots
+                      that may give out that this image is fake or not.
+                    </p>
+                    <div className="flex gap-2 mb-1">
+                      <div className="!h-3 !w-4 mt-1.5 bg-red-700"></div>
+                      <div className="!h-3 !w-4 mt-1.5 bg-orange-500"></div>
+                      <div className="!h-3 !w-4 mt-1.5 bg-yellow-300"></div>
+                      <p>Area has strong influence on the prediction.</p>
+                    </div>
+                    <div className="flex gap-2 mb-1">
+                      <div className="!h-3 !w-4 mt-1.5 bg-blue-700"></div>
+                      <div className="!h-3 !w-4 mt-1.5 bg-green-400"></div>
+                      <div className="!h-3 !w-4 mt-1.5 bg-black border-[1px] border-white"></div>
+                      <p>Area has little or no influence on the prediction.</p>
+                    </div>
+                  </div>
+                )}
+              </div>
               <div className="flex justify-center flex-grow bg-[#121A31] items-center py-14">
                 {isLoading ? (
                   <div className="w-10 h-10 border-4 border-t-white border-[#04FEC1] rounded-full animate-spin"></div>
